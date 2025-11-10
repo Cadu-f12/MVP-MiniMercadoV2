@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Java 25/Java 25.iml" filepath="$PROJECT_DIR$/Java 25/Java 25.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/MVP-MiniMercadoV2.iml" filepath="$PROJECT_DIR$/.idea/MVP-MiniMercadoV2.iml" />
     </modules>
   </component>
