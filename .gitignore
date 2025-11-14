@@ -1,6 +1,7 @@
 # Default ignored files
-/shelf/
+shelf
 .idea
-/out
-/Java/util/bd.properties
-/lib
+out
+Java/util/bd.properties
+lib
+Java/Java 25.iml
