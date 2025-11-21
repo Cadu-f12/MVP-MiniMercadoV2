@@ -3,7 +3,7 @@ package model;
 public class Produto {
     private final int idProduto;
     private String nome;
-    private String codigoBarras;
+    private String codigoBarras; // (Campo opcional)
     private double preco;
     private int estoque;
 
@@ -51,10 +51,6 @@ public class Produto {
         return codigoBarras;
     }
     public void setCodigoBarras(String codigoBarras) {
-        if (codigoBarras == null || codigoBarras.isEmpty()) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
-        }
-
         for (char c : codigoBarras.toCharArray()) {
             if (!Character.isDigit(c)) {
                 throw new IllegalArgumentException("Não são permitidos caracteres especiais e espaços, apenas números");
