@@ -3,9 +3,7 @@ package model;
 public class ClientePF extends Cliente{
     private String cpf;
 
-    public ClientePF(int idCliente) {
-        super(idCliente);
-    }
+    public ClientePF() {}
     public ClientePF(int idCliente, String nome, Categoria nivelFidelidade, String telefone, String cpf) {
         super(idCliente, nome, nivelFidelidade, telefone);
 

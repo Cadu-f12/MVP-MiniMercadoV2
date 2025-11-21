@@ -1,24 +1,14 @@
 package model;
 
 public abstract class Cliente {
-    private final int idCliente;
+    private int idCliente;
     private String nome;
     private String telefone; // (Campo opcional)
     private Categoria nivelFidelidade;
 
-    public Cliente(int idCliente) {
-        if (idCliente < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
-        }
-
-        this.idCliente = idCliente;
-    }
+    public Cliente() {}
     public Cliente(int idCliente, String nome, Categoria nivelFidelidade, String telefone) {
-        if (idCliente < 1) {
-            throw new IllegalArgumentException("Não é permitido ID negativo");
-        }
-
-        this.idCliente = idCliente;
+        setIdCliente(idCliente);
         setNome(nome);
         setNivelFidelidade(nivelFidelidade);
         setTelefone(telefone);
@@ -27,6 +17,13 @@ public abstract class Cliente {
     /* ID do cliente */
     public int getIdCliente() {
         return idCliente;
+    }
+    public void setIdCliente(int idCliente) {
+        if (idCliente < 1) {
+            throw new IllegalArgumentException("Não é permitido ID negativo");
+        }
+
+        this.idCliente = idCliente;
     }
 
     /* Nome */
