@@ -3,6 +3,6 @@ shelf
 .idea
 out
 Java/util/bd.properties
-lib
+MySQLDriver
 Java/Java 25.iml
 MVP-MiniMercadoV2.iml

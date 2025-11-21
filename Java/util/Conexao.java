@@ -21,7 +21,7 @@ public class Conexao {
         }
 
         Properties properties = new Properties();
-        try (FileInputStream inputStream = new FileInputStream("util/bd.properties")) {
+        try (FileInputStream inputStream = new FileInputStream("Java/util/bd.properties")) {
             properties.load(inputStream);
             url = properties.getProperty("url");
             usuario = properties.getProperty("usuario");
