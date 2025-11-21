@@ -3,9 +3,7 @@ package model;
 public class ClientePJ extends Cliente{
     private String cnpj;
 
-    public ClientePJ(int idCliente) {
-        super(idCliente);
-    }
+    public ClientePJ() {}
     public ClientePJ(int idCliente, String nome, Categoria nivelFidelidade, String telefone, String cnpj) {
         super(idCliente, nome, nivelFidelidade, telefone);
 

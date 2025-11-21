@@ -3,26 +3,16 @@ package model;
 import java.time.LocalDateTime;
 
 public class Venda {
-    private final int idVenda;
+    private int idVenda;
     private int idCliente; // Chave estrangeira -> Cliente
     private int idItensVenda; // Chave estrangeira -> ItensVenda
     private LocalDateTime data;
     private double desconto;
-    private double total;
+    private double total; // total = subtotal - desconto
 
-    public Venda(int idVenda) {
-        if (idVenda < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
-        }
-
-        this.idVenda = idVenda;
-    }
+    public Venda() {}
     public Venda(int idVenda, int idCliente, int idItensVenda, LocalDateTime data, double desconto, double total) {
-        if (idVenda < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
-        }
-
-        this.idVenda = idVenda;
+        setIdVenda(idVenda);
         setIdCliente(idCliente);
         setIdItensVenda(idItensVenda);
         setData(data);
@@ -32,6 +22,9 @@ public class Venda {
 
     public int getIdVenda() {
         return idVenda;
+    }
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 
     public int getIdCliente() {

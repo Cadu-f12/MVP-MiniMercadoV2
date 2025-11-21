@@ -1,25 +1,15 @@
 package model;
 
 public class Produto {
-    private final int idProduto;
+    private int idProduto;
     private String nome;
     private String codigoBarras;
     private double preco;
     private int estoque;
 
-    public Produto(int idProduto) {
-        if (idProduto < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
-        }
-
-        this.idProduto = idProduto;
-    }
+    public Produto() {}
     public Produto(int idProduto, String nome, String codigoBarras, double preco, int estoque) {
-        if (idProduto < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
-        }
-        
-        this.idProduto = idProduto;
+        setIdProduto(idProduto);
         setNome(nome);
         setCodigoBarras(codigoBarras);
         setPreco(preco);
@@ -28,6 +18,12 @@ public class Produto {
 
     public int getidProduto() {
         return idProduto;
+    }
+    public void setIdProduto(int idProduto) {
+        if (idProduto < 1) {
+            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
+        }
+        this.idProduto = idProduto;
     }
     
     public String getNome() {
