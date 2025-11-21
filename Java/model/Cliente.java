@@ -8,7 +8,7 @@ public abstract class Cliente {
 
     public Cliente(int idCliente) {
         if (idCliente < 1) {
-            throw new IllegalArgumentException("Não é permitido ID negativo");
+            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
         }
 
         this.idCliente = idCliente;
