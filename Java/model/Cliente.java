@@ -3,7 +3,7 @@ package model;
 public abstract class Cliente {
     private final int idCliente;
     private String nome;
-    private String telefone;
+    private String telefone; // (Campo opcional)
     private Categoria nivelFidelidade;
 
     public Cliente(int idCliente) {
@@ -53,10 +53,6 @@ public abstract class Cliente {
         return telefone;
     }
     public void setTelefone(String telefone) {
-        if (telefone == null || telefone.isEmpty()) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
-        }
-
         // Veficação de caracteres especiais
         for (char caracter : telefone.toCharArray()) {
             if (!Character.isDigit(caracter)) {
