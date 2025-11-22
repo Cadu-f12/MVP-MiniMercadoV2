@@ -21,7 +21,7 @@ public class ItensVenda {
     }
     public void setIdItensVenda(int idItensVenda) {
         if (idItensVenda < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
+            throw new IllegalArgumentException("id_itensVenda inválido: valor <= 0 detectado.");
         }
         this.idItensVenda = idItensVenda;
     }
@@ -31,13 +31,13 @@ public class ItensVenda {
     }
     public void setNomeProduto(String nomeProduto) {
         if (nomeProduto == null || nomeProduto.isEmpty()) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
+            throw new NullPointerException("nome_produto inválido: valor null ou string vazia (\"\") detectado.");
         }
 
         // Verificação de números no nome
         for (char caracter : nomeProduto.toCharArray()) {
             if (!Character.isLetter(caracter) && caracter != ' ') {
-                throw new IllegalArgumentException("Apenas letras são permitidas");
+                throw new IllegalArgumentException("nome inválido: contém números ou caracteres especiais.");
             }
         }
 
@@ -49,7 +49,7 @@ public class ItensVenda {
     }
     public void setQuantidade(int quantidade) {
         if (quantidade < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
+            throw new IllegalArgumentException("quantidade inválida: valor menor que 1 detectado.");
         }
 
         this.quantidade = quantidade;
@@ -60,7 +60,7 @@ public class ItensVenda {
     }
     public void setPreco(double preco) {
         if (preco < 0.01) {
-            throw new IllegalArgumentException("O atributo não deve ser igual ou menor que zero");
+            throw new IllegalArgumentException("preco inválido: valor menor que 0.01 detectado.");
         }
 
         this.preco = preco;
