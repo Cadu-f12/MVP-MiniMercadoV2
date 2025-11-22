@@ -20,7 +20,7 @@ public abstract class Cliente {
     }
     public void setIdCliente(int idCliente) {
         if (idCliente < 1) {
-            throw new IllegalArgumentException("Não é permitido ID negativo");
+            throw new IllegalArgumentException("id_cliente inválido: valor <= 0 detectado.");
         }
 
         this.idCliente = idCliente;
@@ -32,13 +32,13 @@ public abstract class Cliente {
     }
     public void setNome(String nome) {
         if (nome == null || nome.isEmpty()) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
+            throw new NullPointerException("nome inválido: valor vazio (\"\") ou null detectado.");
         }
 
         // Verificação de números no nome
         for (char caracter : nome.toCharArray()) {
             if (!Character.isLetter(caracter) && caracter != ' ') {
-                throw new IllegalArgumentException("Apenas letras são permitidas");
+                throw new IllegalArgumentException("nome inválido: contém números ou caracteres especiais não permitidos.");
             }
         }
 
@@ -52,11 +52,11 @@ public abstract class Cliente {
     public void setTelefone(String telefone) {
         if (telefone != null) {
             if (telefone.isEmpty()) {
-                throw new NullPointerException("Valor inválido: esperado null ou valor preenchido, mas recebido string vazia.");
+                throw new NullPointerException("telefone inválido: string vazia (\"\") detectada.");
             }
             for (char caracter : telefone.toCharArray()) {
                 if (!Character.isDigit(caracter)) {
-                    throw new IllegalArgumentException("Não são permitidos caracteres especiais, apenas números");
+                    throw new IllegalArgumentException("telefone inválido: contém caracteres não numéricos.");
                 }
             }
         }
@@ -69,7 +69,7 @@ public abstract class Cliente {
     }
     public void setNivelFidelidade(Categoria nivelFidelidade) {
         if (nivelFidelidade == null) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
+            throw new NullPointerException("nivelFidelidade inválido: valor null detectado.");
         }
         this.nivelFidelidade = nivelFidelidade;
     }
