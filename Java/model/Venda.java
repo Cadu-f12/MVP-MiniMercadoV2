@@ -7,7 +7,7 @@ public class Venda {
     private int idCliente; // Chave estrangeira -> Cliente
     private int idItensVenda; // Chave estrangeira -> ItensVenda
     private LocalDateTime data;
-    private double desconto;
+    private double desconto; // Caso o desconto seja null, significa sem desconto
     private double total; // total = subtotal - desconto
 
     public Venda() {}
@@ -24,6 +24,9 @@ public class Venda {
         return idVenda;
     }
     public void setIdVenda(int idVenda) {
+        if (idVenda < 1) {
+            throw new IllegalArgumentException("id_venda inválido: valor menor que 1 detectado.");
+        }
         this.idVenda = idVenda;
     }
 
@@ -32,9 +35,8 @@ public class Venda {
     }
     public void setIdCliente(int idCliente) {
         if (idCliente < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
+            throw new IllegalArgumentException("venda.id_cliente inválido: valor <= 0 detectado.");
         }
-
         this.idCliente = idCliente;
     }
 
@@ -43,9 +45,8 @@ public class Venda {
     }
     public void setIdItensVenda(int idItensVenda) {
         if (idItensVenda < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
+            throw new IllegalArgumentException("id_itensVenda inválido: valor <= 0 detectado.");
         }
-
         this.idItensVenda = idItensVenda;
     }
 
@@ -54,7 +55,7 @@ public class Venda {
     }
     public void setData(LocalDateTime data) {
         if (data == null) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
+            throw new NullPointerException("data inválida: valor null detectado.");
         }
 
         this.data = data;
@@ -76,9 +77,8 @@ public class Venda {
     }
     public void setTotal(double total) {
         if (total < 0.01) {
-            throw new IllegalArgumentException("Neste atributo não é permitido valores iguais ou menores que zero");
+            throw new IllegalArgumentException("desconto inválido: valor menor que 0.01 detectado.");
         }
-
         this.total = total;
     }
 }
