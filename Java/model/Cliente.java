@@ -50,13 +50,16 @@ public abstract class Cliente {
         return telefone;
     }
     public void setTelefone(String telefone) {
-        // Veficação de caracteres especiais
-        for (char caracter : telefone.toCharArray()) {
-            if (!Character.isDigit(caracter)) {
-                throw new IllegalArgumentException("Não são permitidos caracteres especiais, apenas números");
+        if (telefone != null) {
+            if (telefone.isEmpty()) {
+                throw new NullPointerException("Valor inválido: esperado null ou valor preenchido, mas recebido string vazia.");
+            }
+            for (char caracter : telefone.toCharArray()) {
+                if (!Character.isDigit(caracter)) {
+                    throw new IllegalArgumentException("Não são permitidos caracteres especiais, apenas números");
+                }
             }
         }
-
         this.telefone = telefone;
     }
 

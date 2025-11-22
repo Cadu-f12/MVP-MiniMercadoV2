@@ -47,12 +47,16 @@ public class Produto {
         return codigoBarras;
     }
     public void setCodigoBarras(String codigoBarras) {
-        for (char c : codigoBarras.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                throw new IllegalArgumentException("Não são permitidos caracteres especiais e espaços, apenas números");
+        if (codigoBarras != null) {
+            if (codigoBarras.isEmpty()) {
+                throw new NullPointerException("Valor inválido: esperado null ou valor preenchido, mas recebido string vazia.");
+            }
+            for (char c : codigoBarras.toCharArray()) {
+                if (!Character.isDigit(c)) {
+                    throw new IllegalArgumentException("Não são permitidos caracteres especiais e espaços, apenas números");
+                }
             }
         }
-
         this.codigoBarras = codigoBarras;
     }
 
