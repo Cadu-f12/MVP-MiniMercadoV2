@@ -18,13 +18,13 @@ public class ClientePJ extends Cliente{
     @Override
     public void setDocumento(String cnpj) {
         if (cnpj == null || cnpj.isEmpty()) {
-            throw new NullPointerException("O campo não deve ser vazio");
+            throw new NullPointerException("cnpj inválido: valor null ou string vazia (\"\") detectado.");
         }
 
         // Verificação de caracteres especiais
         for (char caracter : cnpj.toCharArray()) {
             if (!Character.isDigit(caracter)) {
-                throw new IllegalArgumentException("Não são permitidos caracteres especiais, apenas números");
+                throw new IllegalArgumentException("cnpj inválido: contém caracteres não numéricos.");
             }
         }
         this.cnpj = cnpj;

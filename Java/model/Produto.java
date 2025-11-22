@@ -21,7 +21,7 @@ public class Produto {
     }
     public void setIdProduto(int idProduto) {
         if (idProduto < 1) {
-            throw new IllegalArgumentException("Não é permitido ID igual ou menor que zero");
+            throw new IllegalArgumentException("id_produto inválido: valor <= 0 detectado.");
         }
         this.idProduto = idProduto;
     }
@@ -31,12 +31,12 @@ public class Produto {
     }
     public void setNome(String nome) {
         if (nome == null || nome.isEmpty()) {
-            throw new NullPointerException("Este atributo não deve ser vazio");
+            throw new NullPointerException("nome inválido: valor null ou string vazia (\"\") detectado.");
         }
         
         for (char c : nome.toCharArray()) {
             if (!Character.isLetter(c) && c != ' ') {
-                throw new IllegalArgumentException("Apenas letras são permitidas");
+                throw new IllegalArgumentException("nome inválido: contém números ou caracteres especiais.");
             }
         }
         
@@ -49,11 +49,11 @@ public class Produto {
     public void setCodigoBarras(String codigoBarras) {
         if (codigoBarras != null) {
             if (codigoBarras.isEmpty()) {
-                throw new NullPointerException("Valor inválido: esperado null ou valor preenchido, mas recebido string vazia.");
+                throw new NullPointerException("codBarras inválido: string vazia (\"\") detectada.");
             }
             for (char c : codigoBarras.toCharArray()) {
                 if (!Character.isDigit(c)) {
-                    throw new IllegalArgumentException("Não são permitidos caracteres especiais e espaços, apenas números");
+                    throw new IllegalArgumentException("codBarras inválido: contém caracteres não numéricos.");
                 }
             }
         }
@@ -66,7 +66,7 @@ public class Produto {
     }
     public void setPreco(double preco) {
         if (preco < 0.01) {
-            throw new IllegalArgumentException("O atributo não deve ser igual ou menor que zero");
+            throw new IllegalArgumentException("preco inválido: valor menor que 0.01 detectado.");
         }
         
         this.preco = preco;
@@ -77,9 +77,8 @@ public class Produto {
     }
     public void setEstoque(int estoque) {
         if (estoque < 0) {
-            throw new IllegalArgumentException("O atributo não deve ser negativo");
+            throw new IllegalArgumentException("estoque inválido: valor negativo detectado.");
         }
-        
         this.estoque = estoque;
     }
 }

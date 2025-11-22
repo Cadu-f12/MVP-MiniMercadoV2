@@ -18,16 +18,15 @@ public class ClientePF extends Cliente{
     @Override
     public void setDocumento(String cpf) {
         if (cpf == null || cpf.isEmpty()) {
-            throw new NullPointerException("O campo não deve ser vazio");
+            throw new NullPointerException("cpf inválido: valor null ou string vazia (\"\") detectado.");
         }
 
         // Verificação de caracteres especiais
         for (char caracter : cpf.toCharArray()) {
             if (!Character.isDigit(caracter)) {
-                throw new IllegalArgumentException("Não são permitidos caracteres especiais, apenas números");
+                throw new IllegalArgumentException("cpf inválido: contém caracteres não numéricos.");
             }
         }
-
         this.cpf = cpf;
     }
 }
