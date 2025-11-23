@@ -94,11 +94,7 @@ public class ProdutoDAO {
             PreparedStatement pstmt = conn.prepareStatement(sqlDelete)) {
             pstmt.setInt(1, id);
 
-            int linhasAfetadas = pstmt.executeUpdate();
-
-            if (linhasAfetadas == 0) {
-                throw new SQLException("ID não encontrado para exclusão: " + id);
-            }
+            pstmt.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
