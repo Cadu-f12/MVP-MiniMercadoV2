@@ -30,9 +30,9 @@ public class ProdutoDAO {
 
             pstmt.executeUpdate();
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.err.println("ERRO na integridade dos dados: " + e.getMessage());
+            throw new RuntimeException("ERRO na integridade dos dados - " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("ERRO (ClientesDAO/insert): " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

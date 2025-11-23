@@ -62,9 +62,9 @@ public class ClienteDAO {
 
             pstmt.executeUpdate();
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("ERRO na integridade dos dados: " + e.getMessage());
+            throw new RuntimeException("ERRO na integridade dos dados - " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("ERRO (ClientesDAO/insert): " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
