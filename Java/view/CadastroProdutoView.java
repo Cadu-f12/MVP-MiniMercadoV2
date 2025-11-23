@@ -102,14 +102,14 @@ public class CadastroProdutoView extends JFrame {
     // Método que salva os dados nas variáveis públicas
     private void salvarDados() {
         try {
-//            ProdutoService produtoService = new ProdutoService();
-//
-//            produtoService.CadastrarProduto(
-//                    txtNome.getText(),
-//                    txtCodigo.getText(),
-//                    Double.parseDouble(txtPreco.getText()),
-//                    Integer.parseInt(txtEstoque.getText())
-//            );
+            ProdutoService produtoService = new ProdutoService();
+
+            produtoService.CadastrarProduto(
+                    txtNome.getText(),
+                    txtCodigo.getText(),
+                    Double.parseDouble(txtPreco.getText()),
+                    Integer.parseInt(txtEstoque.getText())
+            );
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao capturar dados!\n" + e.getMessage());
