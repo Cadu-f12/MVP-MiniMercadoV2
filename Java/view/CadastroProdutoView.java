@@ -113,6 +113,8 @@ public class CadastroProdutoView extends JFrame {
                     Integer.parseInt(txtEstoque.getText())
             );
 
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao capturar dados!\n" + e.getMessage());
         }
