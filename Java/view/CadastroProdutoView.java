@@ -1,5 +1,7 @@
 package view;
 
+import service.ProdutoService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
