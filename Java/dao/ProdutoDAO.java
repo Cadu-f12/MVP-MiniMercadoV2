@@ -3,14 +3,17 @@ package dao;
 import model.Produto;
 import util.Conexao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class ProdutoDAO {
     private final String sqlInsert;
+    private final String sqlSelect;
+    private final String sqlDelete;
 
     public ProdutoDAO() {
         sqlInsert = "INSERT INTO produtos (nome, codBarras, preco, estoque) VALUES (?, ?, ?, ?)";
+        sqlDelete = "DELETE FROM produtos WHERE id = ?";
+        sqlSelect = "SELECT * FROM produtos WHERE id = ?";
     }
 
     public void insert(String nome, String codBarras, double preco, int estoque) {
@@ -31,6 +34,43 @@ public class ProdutoDAO {
             pstmt.executeUpdate();
         } catch (NullPointerException | IllegalArgumentException e) {
             throw new RuntimeException("ERRO na integridade dos dados - " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public Produto select(int id) {
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sqlSelect)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            Produto produto = new Produto();
+            while(rs.next()) {
+                produto.setIdProduto(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setPreco(rs.getDouble("preco"));
+                produto.setEstoque(rs.getInt("estoque"));
+                produto.setCodigoBarras(rs.getString("codBarras"));
+            }
+
+            rs.close();
+            return produto;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public void delete(int id) {
+        try (Connection conn = Conexao.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sqlDelete)) {
+            pstmt.setInt(1, id);
+
+            int linhasAfetadas = pstmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new SQLException("ID não encontrado para exclusão: " + id);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
