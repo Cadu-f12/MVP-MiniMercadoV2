@@ -8,12 +8,14 @@ import java.sql.*;
 public class ProdutoDAO {
     private final String sqlInsert;
     private final String sqlSelect;
+    private final String sqlUpdate;
     private final String sqlDelete;
 
     public ProdutoDAO() {
         sqlInsert = "INSERT INTO produtos (nome, codBarras, preco, estoque) VALUES (?, ?, ?, ?)";
-        sqlDelete = "DELETE FROM produtos WHERE id = ?";
         sqlSelect = "SELECT * FROM produtos WHERE id = ?";
+        sqlUpdate = "UPDATE produtos SET nome = ?, codBarras = ?, preco = ?, estoque = ? WHERE id = ?";
+        sqlDelete = "DELETE FROM produtos WHERE id = ?";
     }
 
     public void insert(String nome, String codBarras, double preco, int estoque) {
@@ -58,6 +60,32 @@ public class ProdutoDAO {
             return produto;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public void update(int id, String nome, String codBarras, double preco, int estoque) {
+        Produto produto = select(id);
+
+        if (nome != null) {
+            produto.setNome(nome);
+        }
+        if (codBarras != null) {
+            produto.setCodigoBarras(codBarras);
+        }
+        produto.setPreco(preco);
+        produto.setEstoque(estoque);
+
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
+            pstmt.setString(1, produto.getNome());
+            pstmt.setString(2, produto.getCodigoBarras());
+            pstmt.setDouble(3, produto.getPreco());
+            pstmt.setInt(4, produto.getEstoque());
+            pstmt.setInt(5, produto.getidProduto());
+
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
