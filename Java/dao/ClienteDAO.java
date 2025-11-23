@@ -1,4 +1,4 @@
-package service;
+package dao;
 
 import model.Categoria;
 import model.Cliente;
