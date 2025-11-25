@@ -14,4 +14,22 @@ public class ProdutoService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    public void ConsultarProduto(int id) {
+
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.select(id);
+    }
+
+    public void EditarProduto(int id, String nome, String codBarras, double preco, int estoque) {
+
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.update(id, nome, codBarras, preco, estoque);
+    }
+
+    public void DeletarProduto(int id) {
+
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.delete(id);
+    }
 }
