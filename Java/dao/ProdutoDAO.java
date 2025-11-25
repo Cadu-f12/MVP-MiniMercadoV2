@@ -10,12 +10,16 @@ public class ProdutoDAO {
     private final String sqlSelect;
     private final String sqlUpdate;
     private final String sqlDelete;
+    private final String sqlCheckId;
+    private final String sqlCheckName;
 
     public ProdutoDAO() {
         sqlInsert = "INSERT INTO produtos (nome, codBarras, preco, estoque) VALUES (?, ?, ?, ?)";
         sqlSelect = "SELECT * FROM produtos WHERE id = ?";
         sqlUpdate = "UPDATE produtos SET nome = ?, codBarras = ?, preco = ?, estoque = ? WHERE id = ?";
         sqlDelete = "DELETE FROM produtos WHERE id = ?";
+        sqlCheckId = "SELECT 1 FROM produtos WHERE id = ?";
+        sqlCheckName = "SELECT 1 FROM produtos WHERE nome = ?";
     }
 
     public void insert(String nome, String codBarras, double preco, int estoque) {
@@ -95,6 +99,34 @@ public class ProdutoDAO {
             pstmt.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public boolean existePorId(int id) {
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sqlCheckId)) {
+
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next(); // true se encontrou, false se não
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao verificar existência do produto.", e);
+        }
+    }
+
+    public boolean existePorNome(String nome) {
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sqlCheckName)) {
+
+            pstmt.setString(1, nome);
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao verificar nome do produto.", e);
         }
     }
 }
