@@ -66,12 +66,10 @@ public class ProdutoDAO {
     public void update(int id, String nome, String codBarras, double preco, int estoque) {
         Produto produto = select(id);
 
-        if (nome != null) {
-            produto.setNome(nome);
-        }
-        if (codBarras != null) {
-            produto.setCodigoBarras(codBarras);
-        }
+        produto.setNome(nome);
+
+        produto.setCodigoBarras(codBarras);
+
         produto.setPreco(preco);
         produto.setEstoque(estoque);
 
