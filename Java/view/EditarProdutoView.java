@@ -12,7 +12,7 @@ public class EditarProdutoView extends JFrame {
     private final JTextField txtNome;
     private final JTextField txtPreco;
     private final JTextField txtEstoque;
-    private final JTextField txtCodigoBarras = null;
+    private JTextField txtCodigoBarras = null;
 
 
     public EditarProdutoView() {
@@ -26,6 +26,10 @@ public class EditarProdutoView extends JFrame {
         txtCodigo = new JTextField();
         add(txtCodigo);
 
+
+        add(new JLabel("Codigo de Barras:"));
+        txtCodigoBarras = new JTextField();
+        add(txtCodigoBarras);
 
         JButton btnBuscar = new JButton("Carregar Dados");
         add(btnBuscar);
