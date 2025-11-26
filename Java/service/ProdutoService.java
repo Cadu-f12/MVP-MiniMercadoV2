@@ -1,8 +1,7 @@
 package service;
 
 import dao.ProdutoDAO;
-
-import java.sql.SQLException;
+import model.Produto;
 
 public class ProdutoService {
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -19,12 +18,13 @@ public class ProdutoService {
         }
     }
 
-    public void ConsultarProduto(int id) {
+    public Produto ConsultarProduto(int id) {
         if (!produtoDAO.existePorId(id)) {
             throw new RuntimeException("O produto do id " + id + " não existe no sistema");
         }
 
         produtoDAO.select(id);
+        return null;
     }
 
     public void EditarProduto(int id, String nome, String codBarras, double preco, int estoque) {

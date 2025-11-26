@@ -1,0 +1,97 @@
+package view;
+
+import model.Produto;
+import service.ProdutoService;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class EditarProdutoView extends JFrame {
+    private final JTextField txtCodigo;
+    private final JTextField txtNome;
+    private final JTextField txtPreco;
+    private final JTextField txtEstoque;
+    private final JTextField txtCodigoBarras = null;
+
+
+    public EditarProdutoView() {
+        setTitle("Editar Produto");
+        setSize(400, 300);
+        setLayout(new GridLayout(6, 2));
+        setLocationRelativeTo(null);
+
+
+        add(new JLabel("Código:"));
+        txtCodigo = new JTextField();
+        add(txtCodigo);
+
+
+        JButton btnBuscar = new JButton("Carregar Dados");
+        add(btnBuscar);
+        add(new JLabel(""));
+
+
+        add(new JLabel("Nome:"));
+        txtNome = new JTextField();
+        add(txtNome);
+
+
+        add(new JLabel("Preço:"));
+        txtPreco = new JTextField();
+        add(txtPreco);
+
+
+        add(new JLabel("Estoque:"));
+        txtEstoque = new JTextField();
+        add(txtEstoque);
+
+
+        JButton btnSalvar = new JButton("Salvar Alterações");
+        add(btnSalvar);
+
+
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ProdutoService service = new ProdutoService();
+                    Produto p = service.ConsultarProduto(Integer.parseInt(txtCodigo.getText()));
+                    if (p != null) {
+                        txtNome.setText(p.getNome());
+                        txtPreco.setText(String.valueOf(p.getPreco()));
+                        txtEstoque.setText(String.valueOf(p.getEstoque()));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+
+
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ProdutoService service = new ProdutoService();
+                    service.EditarProduto(
+                            Integer.parseInt(txtCodigo.getText()),  // id
+                            txtNome.getText(),                      // nome
+                            txtCodigoBarras.getText(),              // codBarras
+                            Double.parseDouble(txtPreco.getText()), // preco
+                            Integer.parseInt(txtEstoque.getText())  // estoque
+                    );
+
+                    JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+
+
+        setVisible(true);
+    }
+}
