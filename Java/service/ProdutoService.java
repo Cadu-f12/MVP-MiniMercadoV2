@@ -23,8 +23,8 @@ public class ProdutoService {
             throw new RuntimeException("O produto do id " + id + " não existe no sistema");
         }
 
-        produtoDAO.select(id);
-        return null;
+
+        return produtoDAO.select(id);
     }
 
     public void EditarProduto(int id, String nome, String codBarras, double preco, int estoque) {
