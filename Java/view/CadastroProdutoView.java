@@ -106,11 +106,37 @@ public class CadastroProdutoView extends JFrame {
         try {
             ProdutoService produtoService = new ProdutoService();
 
+            String nome;
+            String codigo;
+            String preco;
+            String estoque;
+
+            if (txtNome.getText().isEmpty()) {
+                throw new RuntimeException("O campo nome não deve ser vazio!");
+            } else {
+                nome = txtNome.getText();
+            }
+            if (txtCodigo.getText().isEmpty()) {
+                codigo = null;
+            } else {
+                codigo = txtCodigo.getText();
+            }
+            if (txtPreco.getText().isEmpty()) {
+                throw new RuntimeException("O campo preço não deve ser vazio!");
+            } else {
+                preco = txtPreco.getText();
+            }
+            if (txtEstoque.getText().isEmpty()) {
+                throw new RuntimeException("O campo estoque não deve ser vazio!");
+            } else {
+                estoque = txtEstoque.getText();
+            }
+
             produtoService.CadastrarProduto(
-                    txtNome.getText(),
-                    txtCodigo.getText(),
-                    Double.parseDouble(txtPreco.getText()),
-                    Integer.parseInt(txtEstoque.getText())
+                    nome,
+                    codigo,
+                    Double.parseDouble(preco),
+                    Integer.parseInt(estoque)
             );
 
             JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
