@@ -81,8 +81,4 @@ public class Produto {
         }
         this.estoque = estoque;
     }
-
-    public String getCodigo() {
-        return "";
-    }
 }
