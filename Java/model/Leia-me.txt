@@ -1,1 +1,0 @@
-Nesta pasta entram as classes das entidades, que servem para armazenar os dados do banco de dados.
