@@ -60,4 +60,19 @@ public class ProdutoService {
 
         return linhas;
     }
+
+    public List<String> capturarPrecos() {
+        ArrayList<Produto> produtos = produtoDAO.listarProdutos();
+
+        List<String> linhas = new ArrayList<>();
+        linhas.add("CATÁLOGO DE PRODUTOS");
+        linhas.add("-".repeat(30));
+        linhas.add(String.format("| %-20s | %-5s |", "PRODUTO", "PREÇO"));
+
+        for (Produto produto : produtos) {
+            linhas.add(String.format("| %-20s | %5.2f |", produto.getNome(), produto.getPreco()));
+        }
+
+        return linhas;
+    }
 }

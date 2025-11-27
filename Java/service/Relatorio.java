@@ -11,13 +11,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Relatorio {
-    public void RelatorioDeEstoque() {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
+    private final ProdutoService produtoService = new ProdutoService();
 
-        List<String> linhas = produtoDAO.capturarEstoque();
+    public void RelatorioDeEstoque() {
+        List<String> linhas = produtoService.capturarEstoque();
 
         try {
-            Files.write(Path.of("Java/relatorio.txt"), linhas);
+            Files.write(Path.of("Java/estoque.txt"), linhas);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void RelatorioDeCatalogo() {
+        List<String> linhas = produtoService.capturarPrecos();
+
+        try {
+            Files.write(Path.of("Java/catalogo.txt"), linhas);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
