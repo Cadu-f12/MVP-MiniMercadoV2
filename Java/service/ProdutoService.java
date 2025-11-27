@@ -3,6 +3,9 @@ package service;
 import dao.ProdutoDAO;
 import model.Produto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProdutoService {
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
 
@@ -41,5 +44,20 @@ public class ProdutoService {
         }
 
         produtoDAO.delete(id);
+    }
+
+    public List<String> capturarEstoque() {
+        ArrayList<Produto> produtos = produtoDAO.listarProdutos();
+
+        List<String> linhas = new ArrayList<>();
+        linhas.add("RELATÓRIO DE ESTOQUE");
+        linhas.add("-".repeat(30));
+        linhas.add(String.format("| %-20s | %-7s |", "PRODUTO", "ESTOQUE"));
+
+        for (Produto produto : produtos) {
+            linhas.add(String.format("| %-20s | %7d |", produto.getNome(), produto.getEstoque()));
+        }
+
+        return linhas;
     }
 }

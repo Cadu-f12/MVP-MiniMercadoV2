@@ -129,21 +129,6 @@ public class ProdutoDAO {
         }
     }
 
-    public List<String> capturarEstoque() {
-        ArrayList<Produto> produtos = listarProdutos();
-
-        List<String> linhas = new ArrayList<>();
-        linhas.add("RELATÓRIO DE ESTOQUE");
-        linhas.add("-".repeat(30));
-        linhas.add(String.format("| %-20s | %-7s |", "PRODUTO", "ESTOQUE"));
-
-        for (Produto produto : produtos) {
-            linhas.add(String.format("| %-20s | %7d |", produto.getNome(), produto.getEstoque()));
-        }
-
-        return linhas;
-    }
-
     public boolean existePorId(int id) {
         try (Connection conn = Conexao.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sqlCheckId)) {
