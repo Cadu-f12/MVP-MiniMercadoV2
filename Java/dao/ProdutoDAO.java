@@ -4,6 +4,8 @@ import model.Produto;
 import util.Conexao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutoDAO {
     private final String sqlInsert;
@@ -67,6 +69,30 @@ public class ProdutoDAO {
         }
     }
 
+    public ArrayList<Produto> listarProdutos() {
+        ArrayList<Produto> produtos = new ArrayList<>();
+
+        String consulta = "SELECT * FROM produtos";
+        try (Connection conn = Conexao.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(consulta)) {
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setIdProduto(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setPreco(rs.getDouble("preco"));
+                produto.setEstoque(rs.getInt("estoque"));
+                produto.setCodigoBarras(rs.getString("codBarras"));
+                produtos.add(produto);
+            }
+
+            return produtos;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void update(int id, String nome, String codBarras, double preco, int estoque) {
         Produto produto = select(id);
 
@@ -100,6 +126,14 @@ public class ProdutoDAO {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public List<String> capturarEstoque() {
+        ArrayList<Produto> produtos = listarProdutos();
+
+        List<String> linhas = new ArrayList<>();
+
+        return null;
     }
 
     public boolean existePorId(int id) {
