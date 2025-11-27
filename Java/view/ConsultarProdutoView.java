@@ -51,7 +51,7 @@ public class ConsultarProdutoView extends JFrame {
                         txtResultado.setText("Produto não encontrado.");
                     }
                 } catch (Exception ex) {
-                    txtResultado.setText("Erro: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
