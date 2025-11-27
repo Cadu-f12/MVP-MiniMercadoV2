@@ -12,7 +12,7 @@ public class EditarProdutoView extends JFrame {
     private final JTextField txtNome;
     private final JTextField txtPreco;
     private final JTextField txtEstoque;
-    private JTextField txtCodigoBarras = null;
+    private final JTextField txtCodigoBarras;
 
 
     public EditarProdutoView() {
@@ -59,14 +59,19 @@ public class EditarProdutoView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ProdutoService service = new ProdutoService();
-                    Produto p = service.ConsultarProduto(Integer.parseInt(txtCodigo.getText()));
-                    if (p != null) {
-                        txtNome.setText(p.getNome());
-                        txtPreco.setText(String.valueOf(p.getPreco()));
-                        txtEstoque.setText(String.valueOf(p.getEstoque()));
+                    if (txtCodigo.getText().isEmpty()) {
+                        throw new RuntimeException("O id está vazio!");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                        ProdutoService service = new ProdutoService();
+                        Produto p = service.ConsultarProduto(Integer.parseInt(txtCodigo.getText()));
+                        if (p != null) {
+                            txtNome.setText(p.getNome());
+                            txtCodigoBarras.setText(p.getCodigoBarras());
+                            txtPreco.setText(String.valueOf(p.getPreco()));
+                            txtEstoque.setText(String.valueOf(p.getEstoque()));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                        }
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -79,15 +84,18 @@ public class EditarProdutoView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ProdutoService service = new ProdutoService();
-                    service.EditarProduto(
-                            Integer.parseInt(txtCodigo.getText()),  // id
-                            txtNome.getText(),                      // nome
-                            txtCodigoBarras.getText(),              // codBarras
-                            Double.parseDouble(txtPreco.getText()), // preco
-                            Integer.parseInt(txtEstoque.getText())  // estoque
-                    );
-
+                    if (txtCodigo.getText().isEmpty()) {
+                        throw new RuntimeException("O id está vazio!");
+                    } else {
+                        ProdutoService service = new ProdutoService();
+                        service.EditarProduto(
+                                Integer.parseInt(txtCodigo.getText()),  // id
+                                txtNome.getText(),                      // nome
+                                txtCodigoBarras.getText(),              // codBarras
+                                Double.parseDouble(txtPreco.getText()), // preco
+                                Integer.parseInt(txtEstoque.getText())  // estoque
+                        );
+                    }
                     JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());

@@ -43,7 +43,7 @@ public class ConsultarProdutoView extends JFrame {
                     if (p != null) {
                         txtResultado.setText(
                                 "Nome: " + p.getNome() + "\n" +
-                                        "Código: " + p.getCodigo() + "\n" +
+                                        "Código: " + p.getCodigoBarras() + "\n" +
                                         "Preço: " + p.getPreco() + "\n" +
                                         "Estoque: " + p.getEstoque()
                         );
