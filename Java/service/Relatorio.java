@@ -1,5 +1,7 @@
 package service;
 
+import dao.ProdutoDAO;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,14 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Relatorio {
-    public void CriarRelatorio() {
-        List<String> linhas = new ArrayList<>();
+    public void RelatorioDeEstoque() {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        linhas.add("RELATÓRIO DE ESTOQUE");
-        linhas.add("---------------");
-        linhas.add("Produto: Arroz");
-        linhas.add("Produto: Feijão");
-
+        List<String> linhas = produtoDAO.capturarEstoque();
 
         try {
             Files.write(Path.of("Java/relatorio.txt"), linhas);
@@ -25,4 +23,3 @@ public class Relatorio {
         }
     }
 }
-

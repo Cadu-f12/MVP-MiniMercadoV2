@@ -4,6 +4,7 @@ import model.Produto;
 import util.Conexao;
 
 import java.sql.*;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,8 +133,15 @@ public class ProdutoDAO {
         ArrayList<Produto> produtos = listarProdutos();
 
         List<String> linhas = new ArrayList<>();
+        linhas.add("RELATÓRIO DE ESTOQUE");
+        linhas.add("-".repeat(30));
+        linhas.add(String.format("| %-20s | %-7s |", "PRODUTO", "ESTOQUE"));
 
-        return null;
+        for (Produto produto : produtos) {
+            linhas.add(String.format("| %-20s | %7d |", produto.getNome(), produto.getEstoque()));
+        }
+
+        return linhas;
     }
 
     public boolean existePorId(int id) {
