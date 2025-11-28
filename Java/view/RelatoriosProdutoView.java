@@ -26,24 +26,74 @@ public class RelatoriosProdutoView extends JFrame {
         btnRelatorioEstoque = new JButton("Criar Relatório de Estoque");
         btnCatalogoProdutos = new JButton("Criar Catálogo de Produtos");
 
-        btnRelatorioEstoque.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                relatorio.RelatorioDeEstoque();
-            }
+
+
+        btnRelatorioEstoque.addActionListener(e -> {
+
+            JDialog loading = criarLoading();
+
+            SwingWorker<Void, Void> worker = new SwingWorker<>() {
+
+                @Override
+                protected Void doInBackground() {
+                    relatorio.RelatorioDeEstoque(); // SEU método pesado
+                    return null;
+                }
+
+                @Override
+                protected void done() {
+                    loading.dispose();
+                    JOptionPane.showMessageDialog(null, "Relatório de estoque gerado com sucesso!");
+                }
+            };
+
+            worker.execute();
+            loading.setVisible(true);
         });
 
-        btnCatalogoProdutos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                relatorio.RelatorioDeCatalogo();
-            }
+
+        btnCatalogoProdutos.addActionListener(e -> {
+
+            JDialog loading = criarLoading();
+
+            SwingWorker<Void, Void> worker = new SwingWorker<>() {
+
+                @Override
+                protected Void doInBackground() {
+                    relatorio.RelatorioDeCatalogo();
+                    return null;
+                }
+
+                @Override
+                protected void done() {
+                    loading.dispose();
+                    JOptionPane.showMessageDialog(null, "Relatório de catálogo gerado com sucesso!");
+                }
+            };
+
+            worker.execute();
+            loading.setVisible(true);
         });
+
 
         painel.add(btnRelatorioEstoque);
         painel.add(btnCatalogoProdutos);
 
         add(painel);
     }
+
+    private JDialog criarLoading() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Gerando relatório...");
+        dialog.setSize(300, 100);
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+        JLabel label = new JLabel("Aguarde, gerando relatório...", SwingConstants.CENTER);
+        dialog.add(label);
+
+        return dialog;
+    }
+
 }
 
