@@ -1,7 +1,4 @@
-import view.CadastroProdutoView;
-import view.ConsultarProdutoView;
-import view.DeletarProdutoView;
-import view.EditarProdutoView;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,8 +28,10 @@ public class Main {
         JButton btnConsultar = new JButton("Consultar Produto");
         JButton btnEditar = new JButton("Editar Produto");
         JButton btnDeletar = new JButton("Deletar Produto");
+        JButton btnRelatorios = new JButton("Relatórios");
 
-        JButton[] botoes = { btnCadastrar, btnConsultar, btnEditar, btnDeletar };
+
+        JButton[] botoes = { btnCadastrar, btnConsultar, btnEditar, btnDeletar, btnRelatorios };
 
         for (JButton b : botoes) {
             b.setPreferredSize(new Dimension(250, 45));
@@ -58,6 +57,7 @@ public class Main {
         btnConsultar.addActionListener(e -> new ConsultarProdutoView().setVisible(true));
         btnEditar.addActionListener(e -> new EditarProdutoView().setVisible(true));
         btnDeletar.addActionListener(e -> new DeletarProdutoView().setVisible(true));
+        btnRelatorios.addActionListener(e -> new RelatoriosProdutoView().setVisible(true));
 
         // ====== ADICIONA OS BOTÕES NA TELA ======
         gbc.gridy = 0;
@@ -68,6 +68,8 @@ public class Main {
         panel.add(btnEditar, gbc);
         gbc.gridy = 3;
         panel.add(btnDeletar, gbc);
+        gbc.gridy = 4;
+        panel.add(btnRelatorios,gbc);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
