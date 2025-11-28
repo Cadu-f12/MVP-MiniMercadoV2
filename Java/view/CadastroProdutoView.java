@@ -124,6 +124,12 @@ public class CadastroProdutoView extends JFrame {
             if (txtPreco.getText().isEmpty()) {
                 throw new RuntimeException("O campo preço não deve ser vazio!");
             } else {
+                for (char c : txtPreco.getText().toCharArray()) {
+                    if (Character.isLetter(c)) {
+                        throw new IllegalArgumentException("preço inválido: contém letras ou caracteres especiais.");
+                    }
+                }
+
                 preco = txtPreco.getText();
             }
             if (txtEstoque.getText().isEmpty()) {

@@ -37,19 +37,24 @@ public class ConsultarProdutoView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ProdutoService service = new ProdutoService();
-                    String codigo = txtCodigo.getText();
-                    Produto p = service.ConsultarProduto(Integer.parseInt(codigo));
-                    if (p != null) {
-                        txtResultado.setText(
-                                "Nome: " + p.getNome() + "\n" +
-                                        "Código: " + p.getCodigoBarras() + "\n" +
-                                        "Preço: " + p.getPreco() + "\n" +
-                                        "Estoque: " + p.getEstoque()
-                        );
-                    } else {
-                        txtResultado.setText("Produto não encontrado.");
+                    if (txtCodigo.getText().isEmpty()) {
+                        throw new IllegalArgumentException("código inválido: o campo não deve ser vazio!");
                     }
+                    for (char c : txtCodigo.getText().toCharArray()) {
+                        if (Character.isLetter(c)) {
+                            throw new IllegalArgumentException("código inválido: contém letras ou caracteres especiais.");
+                        }
+                    }
+
+                    ProdutoService service = new ProdutoService();
+                    Produto p = service.ConsultarProduto(Integer.parseInt(txtCodigo.getText()));
+
+                    txtResultado.setText(
+                        "Nome: " + p.getNome() + "\n" +
+                        "Código: " + p.getCodigoBarras() + "\n" +
+                        "Preço: " + p.getPreco() + "\n" +
+                        "Estoque: " + p.getEstoque()
+                    );
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }

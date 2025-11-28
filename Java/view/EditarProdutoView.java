@@ -60,19 +60,22 @@ public class EditarProdutoView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (txtCodigo.getText().isEmpty()) {
-                        throw new RuntimeException("O id está vazio!");
-                    } else {
-                        ProdutoService service = new ProdutoService();
-                        Produto p = service.ConsultarProduto(Integer.parseInt(txtCodigo.getText()));
-                        if (p != null) {
-                            txtNome.setText(p.getNome());
-                            txtCodigoBarras.setText(p.getCodigoBarras());
-                            txtPreco.setText(String.valueOf(p.getPreco()));
-                            txtEstoque.setText(String.valueOf(p.getEstoque()));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                        throw new RuntimeException("código inválido: o campo não deve ser vazio!");
+                    }
+                    for (char c : txtCodigo.getText().toCharArray()) {
+                        if (Character.isLetter(c)) {
+                            throw new IllegalArgumentException("código inválido: contém letras ou caracteres especiais.");
                         }
                     }
+
+                    ProdutoService service = new ProdutoService();
+                    Produto p = service.ConsultarProduto(Integer.parseInt(txtCodigo.getText()));
+
+                    txtNome.setText(p.getNome());
+                    txtCodigoBarras.setText(p.getCodigoBarras());
+                    txtPreco.setText(String.valueOf(p.getPreco()));
+                    txtEstoque.setText(String.valueOf(p.getEstoque()));
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -85,17 +88,23 @@ public class EditarProdutoView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (txtCodigo.getText().isEmpty()) {
-                        throw new RuntimeException("O id está vazio!");
-                    } else {
-                        ProdutoService service = new ProdutoService();
-                        service.EditarProduto(
-                                Integer.parseInt(txtCodigo.getText()),  // id
-                                txtNome.getText(),                      // nome
-                                txtCodigoBarras.getText(),              // codBarras
-                                Double.parseDouble(txtPreco.getText()), // preco
-                                Integer.parseInt(txtEstoque.getText())  // estoque
-                        );
+                        throw new RuntimeException("código inválido: o campo não deve ser vazio!");
                     }
+                    for (char c : txtCodigo.getText().toCharArray()) {
+                        if (Character.isLetter(c)) {
+                            throw new IllegalArgumentException("código inválido: contém letras ou caracteres especiais.");
+                        }
+                    }
+                    ProdutoService service = new ProdutoService();
+
+                    service.EditarProduto(
+                        Integer.parseInt(txtCodigo.getText()),  // id
+                        txtNome.getText(),                      // nome
+                        txtCodigoBarras.getText(),              // codBarras
+                        Double.parseDouble(txtPreco.getText()), // preco
+                        Integer.parseInt(txtEstoque.getText())  // estoque
+                    );
+
                     JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());

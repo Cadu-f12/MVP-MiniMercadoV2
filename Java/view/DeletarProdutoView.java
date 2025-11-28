@@ -31,8 +31,18 @@ public class DeletarProdutoView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (txtCodigo.getText().isEmpty()) {
+                        throw new IllegalArgumentException("código inválido: o campo não deve ser vazio!");
+                    }
+                    for (char c : txtCodigo.getText().toCharArray()) {
+                        if (Character.isLetter(c)) {
+                            throw new IllegalArgumentException("código inválido: contém letras ou caracteres especiais.");
+                        }
+                    }
+
                     ProdutoService service = new ProdutoService();
                     service.DeletarProduto(Integer.parseInt(txtCodigo.getText()));
+
                     JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
